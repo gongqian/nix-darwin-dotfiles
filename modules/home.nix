@@ -19,12 +19,21 @@ home.packages = with pkgs; [
   zoxide
   bottom
   discocss
+
+      # Useful nix related tools
+    cachix # adding/managing alternative binary caches hosted by Cachix
+    comma # run software from without installing it
+    niv # easy dependency management for nix projects
+    nodePackages.node2nix
+    direnv
+    lorri
+    # crate2nix
 ];
 
 programs.git = {
   enable = true;
-  userName = "shaunsingh";
-  userEmail = "shaunsingh0207@gmail.com";
+  userName = "gongqian";
+  userEmail = "gongqian@gmail.com";
   delta = {
     enable = true;
     options = {
@@ -633,4 +642,9 @@ programs.tmux.enable = true;
     set -g window-status-current-format "#[fg=cyan] #[fg=black]#[bg=cyan]#I #[bg=brightblack]#[fg=brightwhite] #W#[fg=brightblack]#[bg=default]  #[bg=default] #[fg=magenta] #[fg=white]#[bg=magenta]λ #[fg=black]#[bg=brightblack] %a %d %b #[fg=magenta]%R#[fg=brightblack]#[bg=default] "
     set -g window-status-format "#[fg=magenta] #[fg=black]#[bg=magenta]#I #[bg=brightblack]#[fg=brightwhite] #W#[fg=brightblack]#[bg=default]  "
   '';
+  # Direnv, load and unload environment variables depending on the current directory.
+  # https://direnv.net
+  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
 }

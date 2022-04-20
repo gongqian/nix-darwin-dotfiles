@@ -77,7 +77,7 @@
     };
   };
   outputs = { self, nixpkgs, darwin, home-manager, ... }@inputs: {
-    darwinConfigurations."shaunsingh-laptop" = darwin.lib.darwinSystem {
+    darwinConfigurations."geek-laptop" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
         ./modules/mac.nix
@@ -92,7 +92,7 @@
               inherit (inputs)
                 base16-carbon-dark; # pass base16 input so hm can use it
             };
-            users.shauryasingh = {
+            users.geek = {
               imports = [
                 inputs.base16.hmModule
                 ./modules/home.nix
@@ -105,7 +105,6 @@
           services.nix-daemon.enable = true;
           security.pam.enableSudoTouchIdAuth = true;
           nixpkgs = {
-            config.allowBroken = true;
             overlays = with inputs; [
               nur.overlay
               spacebar.overlay
@@ -113,7 +112,7 @@
               (final: prev: {
                 doomEmacsRevision = inputs.doom-emacs.rev;
                 sf-mono-liga-bin = pkgs.callPackage ./pkgs/sf-mono-liga-bin { };
-                nyxt = pkgs.callPackage ./pkgs/nyxt { };
+                # nyxt = pkgs.callPackage ./pkgs/nyxt { };
                 # yabai is broken on macOS 12, so lets make a smol overlay to use the master version
                 yabai = let
                   version = "4.0.0-dev";
@@ -208,7 +207,7 @@
       ];
     };
     nixosConfigurations = {
-      shaunsingh-thinkpad = nixpkgs.lib.nixosSystem {
+      geek-thinkpad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = inputs;
         modules = [
@@ -225,7 +224,7 @@
               extraSpecialArgs = {
                 inherit (inputs) base16-carbon-dark; # see: theme.nix
               };
-              users.shauryasingh = {
+              users.geek = {
                 imports = [
                   inputs.base16.hmModule
                   ./modules/home.nix
@@ -266,7 +265,7 @@
 
             # Network settings.
             networking = {
-              hostName = "shaunsingh-thinkpad"; # Hostname
+              hostName = "geek-thinkpad"; # Hostname
               useDHCP = false; # Deprecated, so set explicitly to false
               wireless.enable = false;
               networkmanager.enable = true;

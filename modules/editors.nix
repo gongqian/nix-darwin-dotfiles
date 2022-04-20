@@ -13,9 +13,14 @@ let
       git -C $HOME/.config/emacs checkout ${pkgs.doomEmacsRevision} || true
     fi
   '';
+  gitWatch = pkgs.writeScriptBin "git-watch" ''
+    function  git-watch() {
+      watch -ct -n1 git --no-pager log --color --all --oneline -decoraate --graph
+    }
+  '';
 in
 {
-  home-manager.users.shauryasingh.home.packages = with pkgs; [
+  home-manager.users.geek.home.packages = with pkgs; [
     (ripgrep.override { withPCRE2 = true; })
     fd
     sqlite
@@ -25,6 +30,7 @@ in
     (aspellWithDicts (ds: with ds; [ en en-computers en-science ]))
     tectonic
     emacsSyncScript
+    gitWatch
     # mu
     # isync
     languagetool

@@ -351,7 +351,7 @@ For Linux systems:
               inherit (inputs)
                 base16-carbon-dark; # pass base16 input so hm can use it
             };
-            users.shauryasingh = {
+            users.geek = {
               imports = [
                 inputs.base16.hmModule
                 ./modules/home.nix
@@ -483,7 +483,7 @@ For Linux systems:
               extraSpecialArgs = {
                 inherit (inputs) base16-carbon-dark; # see: theme.nix
               };
-              users.shauryasingh = {
+              users.geek = {
                 imports = [
                   inputs.base16.hmModule
                   ./modules/home.nix
@@ -554,12 +554,12 @@ My flake.nix file is getting a bit repetitive and cluttered betweeen systems. Le
     # Language Servers
     nodePackages.pyright
     rust-analyzer
-  
+
     # Formatting
     nixfmt
     black
     shellcheck
-  
+
     # Terminal utils and rust alternatives :tm:
     xcp
     lsd
@@ -590,7 +590,7 @@ As opposed to what the xcode CLT provides, I want lfs enabled with git, and use 
 #+end_src
 
 *** Discocss
-Discord is an app I use almost every day, so lets spice it up a bit. 
+Discord is an app I use almost every day, so lets spice it up a bit.
 Ideally, I would like this to just be text and not a file, so I can use that sweet base16-nix integration, but the astrix at the start of the css seems to destroy org-mode. LMK if anyone knows of a fix
 #+begin_src nix :comments none :tangle "./modules/home.nix"
   xdg.dataFile."discocss/custom.css".source = ../configs/custom.css;
@@ -627,7 +627,7 @@ Now for the configuration. We want firefox to use our nice base16-nix powered cs
       --uc-identity-color-red:        #${base0D-hex};
       --uc-identity-color-pink:       #${base0E-hex};
       --uc-identity-color-purple:     #${base0F-hex};
-      
+
       /* URL colour in URL bar suggestions */
       --urlbar-popup-url-color: var(--uc-identity-color-purple) !important;
 
@@ -1251,7 +1251,7 @@ let
   '';
 in
 {
-  home-manager.users.shauryasingh.home.packages = with pkgs; [
+  home-manager.users.geek.home.packages = with pkgs; [
     (ripgrep.override { withPCRE2 = true; })
     fd
     sqlite
@@ -1277,7 +1277,7 @@ There are mac-specific tweaks I need to do. In the future if I switch to nixOS f
 { config, pkgs, lib, ... }: {
 #+end_src
 
-** Basic config 
+** Basic config
 Just the nix-y stuff
 #+begin_src nix :comments none :tangle "./modules/mac.nix"
   nix = {
@@ -1291,16 +1291,16 @@ Just the nix-y stuff
   };
   programs.fish.enable = true;
   environment.shells = with pkgs; [ fish ];
-  users.users.shauryasingh = {
-    home = "/Users/shauryasingh";
+  users.users.geek = {
+    home = "/Users/geek";
     shell = pkgs.fish;
   };
   system.activationScripts.postActivation.text = ''
     # Set the default shell as fish for the user. MacOS doesn't do this like nixOS does
-    sudo chsh -s ${lib.getBin pkgs.fish}/bin/fish shauryasingh
+    sudo chsh -s ${lib.getBin pkgs.fish}/bin/fish geek
   '';
-  environment.systemPackages = with pkgs; [ 
-    emacs 
+  environment.systemPackages = with pkgs; [
+    emacs
     nyxt
   ];
   fonts = {
@@ -1413,7 +1413,7 @@ Skhd is the hotkey daemon for yabai. As yabai is disabled, it makes sense to dis
       lalt - j : yabai -m window --focus south
       lalt - k : yabai -m window --focus north
       lalt - l : yabai -m window --focus east
-          
+
       # swap managed window
       shift + lalt - h : yabai -m window --swap west
       shift + lalt - l : yabai -m window --swap east
@@ -1595,10 +1595,10 @@ in {
 #+end_src
 
 ** Sway.nix
-On the linux side of things, I need to configure sway and all my linux utilities, such as: 
+On the linux side of things, I need to configure sway and all my linux utilities, such as:
 - Install the required packages
 - Enable sway/xwayland/gtk
-- Set the wallpaper and theme for sway 
+- Set the wallpaper and theme for sway
 - Enable trackpad and keyboard support
 - Set enviornment variables
 - Use sway-borders (maybe)
@@ -1754,7 +1754,7 @@ And for the usual linux config that I want to re-use between systems, here it is
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.shauryasingh = {
+  users.users.geek = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
