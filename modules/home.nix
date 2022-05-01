@@ -27,6 +27,7 @@ home.packages = with pkgs; [
     nodePackages.node2nix
     direnv
     lorri
+    nodejs
     # crate2nix
 ];
 
